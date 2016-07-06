@@ -3,20 +3,19 @@
  */
 public class Delivery {
 
-    private int referenceNumber;
+    private String referenceNumber;
     private String intendedRecipient;
     private Caretaker processedBy;
 
 
-    public Delivery(int referenceNumber) {
-        this.referenceNumber = referenceNumber;
+    public Delivery(){
     }
 
-    public int getReferenceNumber() {
+    public String getReferenceNumber() {
         return referenceNumber;
     }
 
-    public void setReferenceNumber(int referenceNumber) {
+    public void setReferenceNumber(String referenceNumber) {
         this.referenceNumber = referenceNumber;
     }
 
