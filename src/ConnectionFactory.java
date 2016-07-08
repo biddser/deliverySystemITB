@@ -10,11 +10,11 @@ public class ConnectionFactory {
     static final String USER = "root";
     static final String PASS = "root";
 
-    static Connection createConnection() {
+    static final Connection createConnection() {
         Connection conn = null;
 
         try {
-            //STEP 2: Register JDBC driver
+            // Register JDBC driver
             Class.forName("com.mysql.jdbc.Driver");
             //Open a connection
             System.out.println("Connecting to a selected database...");

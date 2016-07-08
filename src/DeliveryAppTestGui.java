@@ -13,7 +13,7 @@ import javafx.stage.Stage;
 /**
  *
  */
-public class DeliveryAppTest extends Application {
+public class DeliveryAppTestGui extends Application {
 
     public void start(Stage primaryStage) throws Exception {
         //Creating a GridPane container
@@ -53,15 +53,14 @@ public class DeliveryAppTest extends Application {
         GridPane.setConstraints(clear, 1, 1);
         grid.getChildren().add(clear);
 
-//Setting the scene
+//************** Setting the scene
         Group root = new Group(grid);
         Scene scene = new Scene(root, 600, 400);
         primaryStage.setTitle("My JavaFX Application");
         primaryStage.setScene(scene);
         primaryStage.show();
 
-        Delivery newDelivery = new Delivery();
-        newDelivery.setReferenceNumber(itbReference.getText());
+
 
         //Adding a Label
         final Label label = new Label();
@@ -69,13 +68,18 @@ public class DeliveryAppTest extends Application {
         GridPane.setColumnSpan(label, 2);
         grid.getChildren().add(label);
 
+
+
 //Setting an action for the Submit button
         submit.setOnAction(new EventHandler<ActionEvent>() {
             @Override
             public void handle(ActionEvent e) {
                 if ((itbReference.getText() != null && !itbReference.getText().isEmpty())) {
-                    label.setText(itbReference.getText() + " " + lastName.getText() + ", "
+                   label.setText(itbReference.getText() + " " + lastName.getText() + ", "
                             + "entered");
+                    Delivery newDelivery = new Delivery();
+                    newDelivery.setReferenceNumber(itbReference.getText());
+                    InsertSQL.executeInsertSQL(newDelivery.getReferenceNumber());
                 } else {
                     label.setText("Please enter a reference number.");
                 }
@@ -92,6 +96,7 @@ public class DeliveryAppTest extends Application {
                 label.setText(null);
             }
         });
+
 
 
     }
