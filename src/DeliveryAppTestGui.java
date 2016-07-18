@@ -26,31 +26,51 @@ public class DeliveryAppTestGui extends Application {
         final TextField itbReference = new TextField();
         itbReference.setPromptText("Enter ITB reference number.");
         itbReference.setPrefColumnCount(10);
-        itbReference.getText();
         GridPane.setConstraints(itbReference, 0, 0);
         grid.getChildren().add(itbReference);
 //Defining the Last Name text field
 
-        final TextField lastName = new TextField();
-        lastName.setPromptText("Enter your last name.");
-        GridPane.setConstraints(lastName, 0, 1);
-        grid.getChildren().add(lastName);
+        final TextField suppliersName = new TextField();
+        suppliersName.setPromptText("Suppliers name.");
+        GridPane.setConstraints(suppliersName, 0, 1);
+        grid.getChildren().add(suppliersName);
+
+        final TextField suppliersReference = new TextField();
+        suppliersReference.setPromptText("Suppliers reference number");
+        GridPane.setConstraints(suppliersReference, 0, 2);
+        grid.getChildren().add(suppliersReference);
+
+        final TextField intendedRecipient = new TextField();
+        intendedRecipient.setPromptText("Suppliers reference number");
+        GridPane.setConstraints(intendedRecipient, 0, 3);
+        grid.getChildren().add(intendedRecipient);
+
+        final TextField ourPurchaseOrderNumber = new TextField();
+        ourPurchaseOrderNumber.setPromptText("Our PO number.");
+        GridPane.setConstraints(ourPurchaseOrderNumber, 0, 4);
+        grid.getChildren().add(ourPurchaseOrderNumber);
+
+        final TextField processedBy = new TextField();
+        processedBy.setPromptText("Processed by");
+        GridPane.setConstraints(processedBy, 0, 5);
+        grid.getChildren().add(processedBy);
+
 //Defining the Comment text field
 
         final TextField comment = new TextField();
         comment.setPrefColumnCount(15);
         comment.setPromptText("Enter your comment.");
-        GridPane.setConstraints(comment, 0, 2);
+        GridPane.setConstraints(comment, 0, 6);
         grid.getChildren().add(comment);
 
 //Defining the Submit button
         Button submit = new Button("Submit");
-        GridPane.setConstraints(submit, 1, 0);
+        GridPane.setConstraints(submit, 0, 7);
         grid.getChildren().add(submit);
 
 //Defining the Clear button
         Button clear = new Button("Clear");
-        GridPane.setConstraints(clear, 1, 1);
+        GridPane.setConstraints(clear, 0, 8);
         grid.getChildren().add(clear);
 
 //************** Setting the scene
@@ -64,7 +84,7 @@ public class DeliveryAppTestGui extends Application {
 
         //Adding a Label
         final Label label = new Label();
-        GridPane.setConstraints(label, 0, 3);
+        GridPane.setConstraints(label, 0, 9);
         GridPane.setColumnSpan(label, 2);
         grid.getChildren().add(label);
 
@@ -75,11 +95,24 @@ public class DeliveryAppTestGui extends Application {
             @Override
             public void handle(ActionEvent e) {
                 if ((itbReference.getText() != null && !itbReference.getText().isEmpty())) {
-                   label.setText(itbReference.getText() + " " + lastName.getText() + ", "
-                            + "entered");
+                   label.setText("Delivery with reference number " + itbReference.getText() + " added");
                     Delivery newDelivery = new Delivery();
                     newDelivery.setReferenceNumber(itbReference.getText());
-                    InsertSQL.executeInsertSQL(newDelivery.getReferenceNumber());
+                    newDelivery.setSuppliersName(suppliersName.getText());
+                    newDelivery.setSuppliersReference(suppliersReference.getText());
+                    newDelivery.setIntendedRecipient(intendedRecipient.getText());
+
+                    try {
+                        newDelivery.setOurPoNumber(Integer.parseInt(ourPurchaseOrderNumber.getText()));
+                    } catch (NumberFormatException ex){
+                        ex.printStackTrace();
+                    }
+
+                    newDelivery.setProcessedBy(processedBy.getText());
+                    InsertSQL.executeInsertSQL(newDelivery.getReferenceNumber(), newDelivery.getSuppliersName(),
+                            newDelivery.getSuppliersReference(), newDelivery.getIntendedRecipient(),
+                            newDelivery.getOurPoNumber(), newDelivery.getProcessedBy());
+
                 } else {
                     label.setText("Please enter a reference number.");
                 }
@@ -91,7 +124,11 @@ public class DeliveryAppTestGui extends Application {
             @Override
             public void handle(ActionEvent e) {
                 itbReference.clear();
-                lastName.clear();
+                suppliersName.clear();
+                suppliersReference.clear();
+                intendedRecipient.clear();
+                ourPurchaseOrderNumber.clear();
+                processedBy.clear();
                 comment.clear();
                 label.setText(null);
             }
@@ -99,5 +136,8 @@ public class DeliveryAppTestGui extends Application {
 
 
 
+    }
+    public static void main(String[] args){
+        launch(args);
     }
 }

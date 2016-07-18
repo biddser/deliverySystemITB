@@ -4,15 +4,38 @@
 public class Delivery {
 
     private String referenceNumber;
+    private String suppliersName;
+    private String suppliersReference;
+    private int ourPoNumber;
     private String intendedRecipient;
-    private Caretaker processedBy;
+    private String processedBy;
 
+    public int getOurPoNumber() {
+        return ourPoNumber;
+    }
 
-    public Delivery(){
+    public void setOurPoNumber(Integer ourPoNumber) {
+        this.ourPoNumber = ourPoNumber;
+    }
+
+    public String getSuppliersReference() {
+        return suppliersReference;
+    }
+
+    public void setSuppliersReference(String suppliersReference) {
+        this.suppliersReference = suppliersReference;
     }
 
     public String getReferenceNumber() {
         return referenceNumber;
+    }
+
+    public String getSuppliersName() {
+        return suppliersName;
+    }
+
+    public void setSuppliersName(String suppliersName) {
+        this.suppliersName = suppliersName;
     }
 
     public void setReferenceNumber(String referenceNumber) {
@@ -23,11 +46,11 @@ public class Delivery {
         return intendedRecipient;
     }
 
-    public Caretaker getProcessedBy() {
+    public String  getProcessedBy() {
         return processedBy;
     }
 
-    public void setProcessedBy(Caretaker processedBy) {
+    public void setProcessedBy(String processedBy) {
         this.processedBy = processedBy;
     }
 
